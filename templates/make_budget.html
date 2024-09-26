@@ -1,0 +1,45 @@
+{% from "bootstrap5/form.html" import render_field %}
+{% block styles %}
+<!--Move some things move to a settings page-->
+
+{% endblock %}
+{% block content %}
+{% include "header.html" %}
+<div class="row fullScreen">
+    <form action="{{ url_for('budget_form') }}" class="px-md-5" method="post">
+        <div class="col-md-6 mx-auto pt-5">
+            {{render_field(form.name)}}
+        </div>
+        <div class="col-md-6 mx-auto">
+            {{ render_field(form.start_month) }}
+        </div>
+        <div class="col-md-6 mx-auto">
+            {{ render_field(form.end_month) }}
+        </div>
+        <div class="col-md-2 mx-auto">
+            {{ render_field(form.submit) }}
+        </div>
+    </form>
+    {% if budget_list %}
+    <div class="row">
+        {% for x in budget_list %}
+        <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5  align-items-center justify-content-center">
+            <div class="list-group list-group d-grid gap-2 border-0 w-50 ">
+                <a href="{{ url_for('input_recurring', budget_id=x.id) }}" name="{{ x.name }}" id="{{ x.name }}"
+                   style="text-decoration: none;">
+                <div class="list-group-item-check pe-none text-center"  >
+                    <label class="list-group-item rounded-3 py-3" for="{{ x.name }}">
+                        {{ x.name }}
+                        <span class="d-block small opacity-50">
+                            {{ 'Starts: ' + x.start_date + ', Ends: ' + x.end_date }}
+                        </span>
+                    </label>
+                </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% include "footer.html" %} {% endblock %}
