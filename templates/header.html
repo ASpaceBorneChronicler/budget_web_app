@@ -41,6 +41,7 @@
         flex-direction: column;
       }
     </style>
+    {% block style %}{% endblock %}
     <!-- Core theme CSS (includes Bootstrap)-->
 <!--    <link-->
 <!--      href="{{ url_for('static', filename='css/styles.css') }}"-->
@@ -49,6 +50,7 @@
     {% endblock %}
   </head>
   <body class="fixfooter">
+  {% block nav %}
     <!-- Navigation-->
     <header class="d-flex justify-content-center py-3">
       <ul class="nav nav-pills">
@@ -61,5 +63,8 @@
         {% endif %}
       </ul>
     </header>
+{% endblock %}
   </body>
+{% block content %}
+{% endblock %}
 </html>

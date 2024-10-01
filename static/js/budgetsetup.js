@@ -155,7 +155,7 @@
                     date: date,
                     budget_id: budget_id2,
                     description: description,
-                    recurring: true,
+                    recurring: true, // check a check box to determain if true or not
                 })
             });
 
@@ -195,7 +195,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const tableIncomeBody = document.getElementById('itemTableBody');
     tableExpenseBody.innerHTML = '';
     tableIncomeBody.innerHTML = '';
-    console.log(incomes.length === 0)
     if (incomes.length === 0) {
     tableIncomeBody.innerHTML = `
         <tr id="noDataRow">
