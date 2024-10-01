@@ -27,7 +27,8 @@ def budget_form():
     # TODO Make the list only show current budgets ? might not be worth it ... should potentially make it such that it
     #  skips straight to budget_view
 
-    budget_list = db.session.query(Budgets.id, Budgets.name, Budgets.start_date, Budgets.end_date).all()
+    budget_list = (db.session.query(Budgets.id, Budgets.name, Budgets.start_date, Budgets.end_date)
+                   .where(Budgets.user_id == current_user.id).all())
     budget_list = [{'id': id, 'name': name, 'start_date': start, 'end_date': end}
                    for id, name, start, end in budget_list]
     # print(budget_list)
@@ -55,9 +56,13 @@ def input_recurring(budget_id):
     # TODO send budget to view ++++
 
     expense_query = (db.session.query(Transactions.name, Transactions.amount, Transactions.description)
-                     .group_by(Transactions.name, Transactions.amount).all())
+                     .where(Transactions.budget_id == budget_id)
+                     .group_by(Transactions.name, Transactions.amount)
+                     .all())
     income_query = (db.session.query(IncomeStreams.name, IncomeStreams.amount, IncomeStreams.description)
-                    .group_by(IncomeStreams.name, IncomeStreams.amount).all())
+                    .where(Transactions.budget_id == budget_id)
+                    .group_by(IncomeStreams.name, IncomeStreams.amount)
+                    .all())
 
     expense_query = [{'name': row.name, 'amount': row.amount, 'description': row.description} for row in
                      expense_query]
@@ -76,10 +81,16 @@ def input_recurring(budget_id):
 @app.route('/budget_dashboard/<int:budget_id>')
 def budget_view(budget_id):
     month = date.today().month
-    t = (db.session.query(IncomeStreams.name, IncomeStreams.amount)
-         .where(IncomeStreams.budget_id == budget_id).all())
+    result = (db.session.query(IncomeStreams.name, IncomeStreams.amount)
+              .where(IncomeStreams.budget_id == budget_id).all())
+    labels_i = [x.name for x in result]
+    data_i = [{'id': str(x.name), 'nested': {'value': str(x.amount)}} for x in result]
 
-    print(t)
+    result2 = (db.session.query(Transactions.name, Transactions.amount)
+               .where(Transactions.budget_id == budget_id,
+                      extract('month', Transactions.transaction_date) == month).all())
+    labels_t = [x.name for x in result2]
+    data_t = [{'id': str(x.name), 'nested': {'value': str(x.amount)}} for x in result2]
 
     # TODO Make monthly report page widgets include :-
     #  time to end (progress bar),
@@ -88,8 +99,8 @@ def budget_view(budget_id):
     #  table for savings, expenses and income in the budget view
 
     return render_template('budget_view.html',
-                           incomeChart='m',
-                           # expenseChart=expense_chart.get()
+                           incomeChart={'labels': labels_i, 'datasets': data_i},
+                           expenseChart={'labels': labels_t, 'datasets': data_t},
                            )
 
 
@@ -104,7 +115,7 @@ class RecurringItem:
         self.budget_id = db.get_or_404(Budgets, b)
         self.start = datetime.strptime(self.budget_id.start_date, '%Y-%m')
         self.end = datetime.strptime(self.budget_id.end_date, '%Y-%m')
-        self.date = d
+        self.date = int(d)
         self.mode = m  # Todo Make users able to make weekly transactions
 
     def months_between(self):
@@ -116,7 +127,7 @@ class RecurringItem:
         entries = []
         for _ in range(self.months_between() + 1):
             new_trans = Transactions(
-                transaction_date=current_date.replace(day=self.date),  # fixme has to canotate the correct date
+                transaction_date=current_date.replace(day=self.date),  # DONE has to input the correct date
                 name=name,
                 amount=amount,
                 description=description,
@@ -260,7 +271,8 @@ def login():
             flash('Password incorrect, please try again.')
             return redirect(url_for('login'))
         else:
-            login_user(user, remember)
+            login_user(user, remember=remember)
+            redirect(url_for('home'))
 
     return render_template('login.html')
 
@@ -311,4 +323,4 @@ if __name__ == "__main__":
     app.run(debug=True)
 
 # DONE Make data visualizations with Matplot lib, seaborn or px- made with pychart.js
-# TODO Make make it an app to with Flet
+# TODO Make make it an app to with Flet ?

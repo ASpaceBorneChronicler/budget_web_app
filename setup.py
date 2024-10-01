@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship, joinedload
 from sqlalchemy.future import select
-from sqlalchemy import Integer, String, Float, Date, ForeignKey
+from sqlalchemy import Integer, String, Float, Date, ForeignKey, extract
 from datetime import date
 from flask_migrate import Migrate
 # DONE Merge this and app setup
