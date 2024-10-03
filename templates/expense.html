@@ -1,7 +1,47 @@
 {% include "budget_view.html" %}
 {% block content %}
-<div>
-<p>Hello, world!</p>
+<div class="col-md-9 col-lg-10 px-md-4 ">
+    <div class="jumbotron col-md-12 m-2 ">
+      <h1 class="display-5">Hello, {{ user_first }}!</h1>
+      <p class="lead">
+          You are currently {{ today }} days into {{ month_name }} out of {{ last_day }}.
+          Let's see how much you have spent this month.
+      </p>
+      <hr class="my-4">
+    <!--            <div class="progress mb-3">-->
+    <!--                    <div class="progress-bar" role="progressbar" aria-valuenow="{{ prog }}"-->
+    <!--                      aria-valuemin="0" aria-valuemax="100" style="width:{{ prog }}%">-->
+    <!--                    </div>-->
+    <!--            </div>-->
+    </div>
+    <div class="col-md-12 ">
+        <div class="row"  style="height: 300px;">
+          <div class="col-md-6 d-flex justify-content-center align-items-center">
+    <!--        <canvas class="my-4" id="chartOne" style="display: block; position:relative; box-sizing: border-box; width: 100%; height: 300px;"></canvas>-->
+          <p class="display-6">
+              chart one
+          </p>
+          </div>
+          <div class="col-md-6 d-flex justify-content-center align-items-center">
+    <!--          <canvas class="my-4" id="chartTwo" style="display: block; position:relative; box-sizing: border-box; width: 100%; height: 300px; "></canvas>-->
+          <p class="display-6" >
+              chart two
+          </p>
+          </div>
+        </div>
+      <hr class="my-4">
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eleifend dictum sem porta elementum. Suspendisse ultrices sit amet ligula quis rhoncus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec ac felis eget velit aliquam euismod in vel enim. Nunc faucibus sodales fringilla. Suspendisse scelerisque, lacus sit amet rutrum rutrum, metus purus feugiat dolor, quis varius leo mauris quis justo. Nulla porttitor quis magna in scelerisque.
+
+Vivamus vel iaculis turpis, at hendrerit odio. Suspendisse in orci rutrum, commodo turpis ac, semper odio. In ac mi a sem ultricies mattis nec sed nibh. Duis sit amet dolor vehicula, dapibus quam quis, suscipit augue. Phasellus vel euismod nisi. Maecenas eget varius urna. Vestibulum sagittis ipsum vel purus facilisis egestas. Fusce vitae purus condimentum, ultricies dolor ut, pharetra lorem. Proin iaculis, odio sit amet dignissim facilisis, dui ipsum imperdiet elit, nec eleifend magna justo ac libero. Nullam facilisis dignissim nunc at iaculis. Maecenas vulputate in diam at porta. Vestibulum eget tristique urna. Proin ultrices dolor eget urna lobortis, quis dictum est pulvinar. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec tincidunt at nisl eget luctus. In consequat molestie consequat.
+
+Ut dictum nunc nec posuere commodo. Mauris eget vehicula ante, eu ullamcorper nisi. Pellentesque ac dictum ex, eget feugiat tellus. Suspendisse a consequat velit. Vivamus sed lorem quis nisi gravida lobortis id vitae mauris. Mauris volutpat est vitae euismod iaculis. Mauris vestibulum convallis felis vel pulvinar. Aenean interdum augue eget velit tincidunt pulvinar. Ut posuere metus eget semper ultrices. Proin et massa sollicitudin, iaculis nulla in, venenatis turpis. In facilisis id metus vitae viverra.
+
+Fusce feugiat nulla nec venenatis euismod. Integer sit amet enim a sem ultricies ornare sit amet in mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur sit amet ante elit. Aliquam ullamcorper purus libero. Phasellus venenatis, massa non rhoncus gravida, elit augue commodo sem, at ornare dolor leo in mauris. In hac habitasse platea dictumst. Etiam et mi tempus, feugiat neque sit amet, placerat tortor. Vivamus ornare lectus at justo porttitor facilisis. Duis varius viverra est. Phasellus aliquam vitae odio condimentum interdum. Proin nisi dui, facilisis at metus vel, vehicula semper ligula. Donec eu mauris ultricies, placerat neque sed, fermentum quam. Pellentesque et turpis hendrerit, iaculis ante sed, facilisis turpis. Integer quam dolor, auctor vitae justo vel, faucibus lacinia leo.
+
+Ut fringilla et quam non finibus. Curabitur euismod aliquet sapien, a dictum quam sollicitudin vehicula. Nam at tortor arcu. Etiam eleifend vulputate varius. Phasellus nec tempor enim, id consectetur neque. Donec placerat nisl id lectus laoreet, at elementum eros elementum. Maecenas a euismod mauris. Proin id orci ac ante aliquet faucibus id in tellus. Praesent a vulputate est. Ut sagittis finibus augue sodales auctor. Aliquam in odio mollis, commodo dolor et, interdum ipsum. Donec vitae condimentum dui.
+        </p>
+    </div>
 </div>
 
 {% endblock %}

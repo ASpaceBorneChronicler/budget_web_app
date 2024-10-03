@@ -62,6 +62,10 @@ class Budgets(db.Model):
 
     # Relationships
     user: Mapped['Users'] = relationship(Users, back_populates='budgets')
+    savings: Mapped[list['Savings']] = relationship(
+        "Savings",
+        back_populates="budget",
+        cascade="all, delete-orphan")
     transactions: Mapped[list['Transactions']] = relationship(
         "Transactions",
         back_populates="budget",
@@ -102,6 +106,21 @@ class Transactions(db.Model):
 
     # Relationships
     budget: Mapped['Budgets'] = relationship("Budgets", back_populates="transactions")
+
+
+class Savings(db.Model):
+    __tablename__='Savings'
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(100), nullable=False)
+    amount: Mapped[float] = mapped_column(Float, nullable=False)
+    description: Mapped[str] = mapped_column(String(275), nullable=True)
+    savings_date: Mapped[date] = mapped_column(Date, nullable=False)
+
+    # Foreign keys
+    budget_id: Mapped[int] = mapped_column(ForeignKey('Budgets.id'))
+
+    # Relationships
+    budget: Mapped['Budgets'] = relationship("Budgets", back_populates="savings")
 
 
 with app.app_context():

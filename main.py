@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import render_template, flash, redirect, url_for, request, jsonify
+from flask import render_template, flash, redirect, url_for, request, jsonify, g
 from flask_login import login_user, current_user, logout_user, user_logged_in
 from werkzeug.security import generate_password_hash, check_password_hash
 from setup import *
@@ -187,20 +187,85 @@ def budget_view(budget_id):
     #  in vs out (grouped bar),
     #  categories (bar)
     #  table for savings, expenses and income in the budget view
-
+    # url_for('jxjsjs',)
     return render_template('dashboard.html',
                            incomeChart={'labels': labels_i, 'datasets': data_i},
                            expenseChart={'labels': labels_t, 'datasets': data_t},
+                           budget_id=budget_id
                            )
 
 
-@app.route('/income_view')
-def income_view():
-    return render_template('income.html')
+@app.route('/income_view/<int:budget_id>')
+def income_view(budget_id):
+    today = datetime.today()
+    t_day = today.day
+    # Get the total number of days in the current month
+    next_month = today.replace(day=28) + timedelta(days=4)
+    last_day_of_month = next_month - timedelta(days=next_month.day)
 
-@app.route('/expense_view')
-def expense_view():
-    return render_template('expense.html')
+    month_name = today.strftime("%B")
+    total_days_in_month = last_day_of_month.day
+    current_day_of_month = today.day
+
+    # Calculate the percentage of the month that has passed
+    percentage = round(((current_day_of_month / total_days_in_month) * 100), 1)
+    return render_template('income.html',
+                           budget_id=budget_id,
+                           prog=percentage,
+                           last_day=last_day_of_month.day,
+                           today=t_day,
+                           user_first=current_user.username,
+                           month_name=month_name
+                           )
+
+
+@app.route('/savings_view/<int:budget_id>')
+def savings_view(budget_id):
+    today = datetime.today()
+    t_day = today.day
+    # Get the total number of days in the current month
+    next_month = today.replace(day=28) + timedelta(days=4)
+    last_day_of_month = next_month - timedelta(days=next_month.day)
+
+    month_name = today.strftime("%B")
+    total_days_in_month = last_day_of_month.day
+    current_day_of_month = today.day
+
+    # Calculate the percentage of the month that has passed
+    percentage = round(((current_day_of_month / total_days_in_month) * 100), 1)
+    return render_template('savings.html',
+                           budget_id=budget_id,
+                           prog=percentage,
+                           last_day=last_day_of_month.day,
+                           today=t_day,
+                           user_first=current_user.username,
+                           month_name=month_name
+                           )
+
+
+@app.route('/expense_view/<int:budget_id>')
+def expense_view(budget_id):
+    today = datetime.today()
+    t_day = today.day
+    # Get the total number of days in the current month
+    next_month = today.replace(day=28) + timedelta(days=4)
+    last_day_of_month = next_month - timedelta(days=next_month.day)
+
+    month_name = today.strftime("%B")
+    total_days_in_month = last_day_of_month.day
+    current_day_of_month = today.day
+
+    # Calculate the percentage of the month that has passed
+    percentage = round(((current_day_of_month / total_days_in_month) * 100), 1)
+    return render_template('expense.html',
+                           budget_id=budget_id,
+                           prog=percentage,
+                           last_day=last_day_of_month.day,
+                           today=t_day,
+                           user_first=current_user.username,
+                           month_name=month_name
+                           )
+
 
 #
 class RecurringItem:

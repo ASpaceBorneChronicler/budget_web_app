@@ -6,96 +6,96 @@
 <script id="incomesData" type="application/json">{{ incomes | tojson }}</script>
 {% endblock %}
 {% block content %}
-{% include "header.html" %}
+{% extends "header.html" %}
 <div class="bd-example-snippet bd-code-snippet">
     <p class="display-6 px-3">This is where you input your expected recurring income , expenses and savings.</p>
     <div class="bd-example m-0 border-0">
         <p class="display-6 px-3">Recurring income</p>
-                <div class=" px-5">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Income</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Description</th>
-                            </tr>
-                        </thead>
-                        <tbody id="itemTableBody">
+        <div class=" px-5">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Income</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody id="itemTableBody">
 
-                        </tbody>
-                    </table>
-                    <div id="totalSection">
-                        <strong>Total Income: </strong> KSH. <span id="totalIncome">0</span>
-                    </div>
-                    <button type="button" class="btn btn-primary ml-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Add item
-                    </button>
-                </div>
-                <!-- Your existing modal code -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add New Item</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-<!-- TODO Remember to add start and end date input for cases where they don't run the course of the entire budgeting time span-->
-              <div class="modal-body">
-                <form id="addItemForm" onsubmit="addItem(event)">
-                  <input type="hidden" id="budgetIdInput" name="budget_id" class="form-control" value="{{ budget_id }}" required>
-                  <div class="mb-3">
-                    <label for="incomeNameInput" class="form-label">Income Name</label>
-                    <input type="text" id="incomeNameInput" name="income_name" class="form-control" placeholder="Enter Income Name" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="incomeInput" class="form-label">Income Amount</label>
-                    <input type="number" id="incomeInput" name="income" class="form-control" placeholder="Enter Amount" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="descriptionInput" class="form-label">Description</label>
-                    <input type="text" id="descriptionInput" name="description" class="form-control" placeholder="Enter Description" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="dateInput" class="form-label">Income Date</label>
-                    <input type="number" id="dateInput" name="date" class="form-control" placeholder="Enter Date" required>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Add</button>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              </div>
+                </tbody>
+            </table>
+            <div id="totalSection">
+                <strong>Total Income: </strong> KSH. <span id="totalIncome">0</span>
+            </div>
+            <button type="button" class="btn btn-primary ml-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Add item
+            </button>
         </div>
-                    </div>
-                </div>
-                <p class="px-3 display-6">Recurring expenses</p>
-                <div class=" px-5" >
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Income</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Description</th>
-                            </tr>
-                        </thead>
-                        <tbody id="itemTable2Body">
+        <!-- Your existing modal code -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Item</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+<!-- TODO Remember to add start and end date input for cases where they don't run the course of the entire budgeting time span-->
+      <div class="modal-body">
+        <form id="addItemForm" onsubmit="addItem(event)">
+          <input type="hidden" id="budgetIdInput" name="budget_id" class="form-control" value="{{ budget_id }}" required>
+          <div class="mb-3">
+            <label for="incomeNameInput" class="form-label">Income Name</label>
+            <input type="text" id="incomeNameInput" name="income_name" class="form-control" placeholder="Enter Income Name" required>
+          </div>
+          <div class="mb-3">
+            <label for="incomeInput" class="form-label">Income Amount</label>
+            <input type="number" id="incomeInput" name="income" class="form-control" placeholder="Enter Amount" required>
+          </div>
+          <div class="mb-3">
+            <label for="descriptionInput" class="form-label">Description</label>
+            <input type="text" id="descriptionInput" name="description" class="form-control" placeholder="Enter Description" required>
+          </div>
+          <div class="mb-3">
+            <label for="dateInput" class="form-label">Income Date</label>
+            <input type="number" id="dateInput" name="date" class="form-control" placeholder="Enter Date" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+</div>
+            </div>
+        </div>
+        <p class="px-3 display-6">Recurring expenses</p>
+        <div class=" px-5" >
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Income</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody id="itemTable2Body">
 
-                        </tbody>
-                    </table>
-                    <!-- Total Section -->
-                    <div id="total2Section">
-                        <strong>Total Income: </strong> KSH. <span id="totalExpense">0</span>
-                    </div>
-                    <button type="button" class="btn btn-primary ml-auto" data-bs-toggle="modal"
-                            data-bs-target="#expenseModal">
-                        Add item
-                    </button>
-                </div>
-                <!-- Your existing modal code -->
-                <div class="modal fade" id="expenseModal" tabindex="-1" aria-labelledby="expenseModalLabel"
+                </tbody>
+            </table>
+            <!-- Total Section -->
+            <div id="total2Section">
+                <strong>Total Income: </strong> KSH. <span id="totalExpense">0</span>
+            </div>
+            <button type="button" class="btn btn-primary ml-auto" data-bs-toggle="modal"
+                    data-bs-target="#expenseModal">
+                Add item
+            </button>
+        </div>
+        <!-- Your existing modal code -->
+        <div class="modal fade" id="expenseModal" tabindex="-1" aria-labelledby="expenseModalLabel"
                  aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -136,6 +136,7 @@
         </div>
             </div>
         </div>
+
     </div>
 </div>
 
